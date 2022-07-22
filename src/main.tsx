@@ -25,6 +25,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path="create" element={<CreateDataset />} />
               <Route path=":datasetId" element={<ShowDataset />} />
             </Route>
+            <Route path="executions">
+              <Route index element={<IndexDataset />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

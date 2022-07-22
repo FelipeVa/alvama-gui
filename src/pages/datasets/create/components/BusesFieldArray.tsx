@@ -19,9 +19,7 @@ const BusesFieldArray: FC<BusesFieldArrayPropsI> = ({ control }) => {
     append({
       brand: 'Bus Brand',
       capacities: [],
-      costs: {
-        per_km: '0',
-      },
+      cost_per_km: '0',
     });
   };
 
@@ -64,7 +62,7 @@ const BusesFieldArray: FC<BusesFieldArrayPropsI> = ({ control }) => {
                       <Input<CreateDatasetFormValues>
                         type="text"
                         label="Cost per km"
-                        name={`buses.${index}.costs.per_km`}
+                        name={`buses.${index}.cost_per_km`}
                         control={control}
                       />
                     </div>

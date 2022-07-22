@@ -16,7 +16,7 @@ const RoutesFieldArray: FC<RoutesFieldArrayPropsI> = ({ control }) => {
 
   const onAddRoute = () => {
     append({
-      label: 'route-label',
+      name: 'route-label',
       length: '0',
       demand: '0',
       cycle_time: '0',
@@ -53,7 +53,7 @@ const RoutesFieldArray: FC<RoutesFieldArrayPropsI> = ({ control }) => {
                   <Input<CreateDatasetFormValues>
                     type="text"
                     label="Label"
-                    name={`routes.${index}.label`}
+                    name={`routes.${index}.name`}
                     control={control}
                   />
                 </div>

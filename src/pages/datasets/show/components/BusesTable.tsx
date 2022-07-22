@@ -39,7 +39,7 @@ const BusesTable: FC<BusesTablePropsI> = ({ buses }) => {
       {
         id: 'cost_per_km',
         header: () => <span>Cost Per KM</span>,
-        accessorFn: row => row.costs.per_km,
+        accessorFn: row => row.cost_per_km,
       },
       {
         id: 'capacities',

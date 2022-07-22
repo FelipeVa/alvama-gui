@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import clsx from '@/utils/clsx';
-import { HomeIcon, MenuIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+  HomeIcon,
+  MenuIcon,
+  PlayIcon,
+  UsersIcon,
+} from '@heroicons/react/outline';
 import { useDisclose } from '@/hooks/useDisclose';
 import { NavLink } from 'react-router-dom';
 
@@ -10,7 +15,8 @@ interface BasicLayoutPropsI {
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-  { name: 'Datasets', href: '/datasets', icon: UsersIcon, current: false },
+  { name: 'Datasets', href: '/datasets', icon: UsersIcon },
+  { name: 'Executions', href: '/executions', icon: PlayIcon },
 ];
 
 const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {

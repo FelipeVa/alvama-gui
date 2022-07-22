@@ -43,7 +43,7 @@ const IndexDataset = () => {
         </div>
       }
     >
-      <DatasetsTable data={data} onDestroy={onDestroyDataset} />
+      {data ? <DatasetsTable data={data} onDestroy={onDestroyDataset} /> : null}
     </BasicContainer>
   );
 };

@@ -21,8 +21,8 @@ const RoutesTable: FC<RoutesTablePropsI> = ({ routes }) => {
     return [
       {
         id: 'name',
-        header: () => <span>Label</span>,
-        accessorFn: row => row.label,
+        header: () => <span>Name</span>,
+        accessorFn: row => row.name,
         size: 450,
       },
       {

@@ -1,5 +1,5 @@
 export type RouteType = {
-  label: string;
+  name: string;
   length: string;
   demand: string;
   cycle_time: string;
@@ -10,14 +10,10 @@ export type BusCapacityType = {
   available: string;
 };
 
-export type BusCostType = {
-  per_km: string;
-};
-
 export type BusType = {
   brand: string;
   capacities: BusCapacityType[];
-  costs: BusCostType;
+  cost_per_km: string;
 };
 
 export type DatasetType = {

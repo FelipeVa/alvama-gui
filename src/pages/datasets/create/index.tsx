@@ -12,11 +12,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { createDatasetSchema } from '@/schemas/dataset.schema';
 import CreateDatasetForm from '@/pages/datasets/create/components/CreateDatasetForm';
 
-const initialValues = {
+const initialValues: CreateDatasetFormValues = {
   name: '',
   routes: [
     {
-      label: 'route-label',
+      name: 'route-label',
       length: '0',
       demand: '0',
       cycle_time: '0',
@@ -26,9 +26,7 @@ const initialValues = {
     {
       brand: 'Bus Brand',
       capacities: [],
-      costs: {
-        per_km: '0',
-      },
+      cost_per_km: '0',
     },
   ],
 };
