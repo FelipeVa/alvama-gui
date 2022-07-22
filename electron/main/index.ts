@@ -1,6 +1,7 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
+import * as path from "path";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -32,7 +33,7 @@ const indexHtml = join(ROOT_PATH.dist, 'index.html')
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    width: 1024,
+    width: 1200,
     height: 768,
     minHeight: 400,
     maxHeight: 800,
@@ -104,3 +105,58 @@ ipcMain.handle('open-win', (event, arg) => {
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
+
+ipcMain.on('file-request', (event) => {
+  // If the platform is 'win32' or 'Linux'
+  if (process.platform !== 'darwin') {
+    // Resolves to a Promise<Object>
+    dialog.showOpenDialog({
+      title: 'Select the File to be uploaded',
+      defaultPath: path.join(__dirname, '../assets/'),
+      buttonLabel: 'Upload',
+      // Restricting the user to only Text Files.
+      filters: [
+        {
+          name: 'Text Files',
+          extensions: ['txt', 'docx']
+        }, ],
+      // Specifying the File Selector Property
+      properties: ['openFile']
+    }).then(file => {
+      // Stating whether dialog operation was
+      // cancelled or not.
+      console.log(file.canceled);
+      if (!file.canceled) {
+        const filepath = file.filePaths[0].toString();
+        event.reply('file', filepath);
+      }
+    }).catch(err => {
+      console.log(err)
+    });
+  }
+  else {
+    // If the platform is 'darwin' (macOS)
+    dialog.showOpenDialog({
+      title: 'Select the File to be uploaded',
+      defaultPath: path.join(__dirname, '../assets/'),
+      buttonLabel: 'Upload',
+      filters: [
+        {
+          name: 'Text Files',
+          extensions: ['json', 'csv']
+        },
+      ],
+      properties: ['openFile', 'openDirectory']
+    }).then(file => {
+
+      if (file.canceled) {
+        return;
+      }
+
+        const filepath = file.filePaths[0].toString();
+        event.sender.send('file', filepath);
+    }).catch(err => {
+      console.log(err)
+    });
+  }
+});
