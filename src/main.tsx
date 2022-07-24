@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NotFound from '@/pages/NotFound';
 import CreateDataset from '@/pages/datasets/create';
 import ShowDataset from '@/pages/datasets/show';
+import IndexExecution from '@/pages/executions/home';
+import CreateExecution from '@/pages/executions/create';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -26,7 +28,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path=":datasetId" element={<ShowDataset />} />
             </Route>
             <Route path="executions">
-              <Route index element={<IndexDataset />} />
+              <Route index element={<IndexExecution />} />
+              <Route path="create" element={<CreateExecution />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

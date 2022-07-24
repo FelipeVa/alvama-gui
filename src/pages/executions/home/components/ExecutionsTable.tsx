@@ -7,14 +7,14 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { Button, ButtonLink } from '@/components/form';
+import { ExecutionType } from '@/types/execution.type';
 import { Table } from '@/components';
-import { DatasetType } from '@/types/dataset.type';
-import { toCalendar } from '@/utils/common';
+import { ButtonLink } from '@/components/form';
+import { EyeIcon } from '@heroicons/react/outline';
+import { fromNow, toCalendar } from '@/utils/common';
 
-interface DatasetsTablePropsI {
-  onDestroy: (id: number) => void;
-  data?: DatasetType[];
+interface ExecutionsTablePropsI {
+  data?: ExecutionType[];
 }
 
 declare module '@tanstack/react-table' {
@@ -23,10 +23,10 @@ declare module '@tanstack/react-table' {
   }
 }
 
-const DatasetsTable: FC<DatasetsTablePropsI> = ({ onDestroy, data }) => {
+const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = useMemo<ColumnDef<DatasetType>[]>(() => {
+  const columns = useMemo<ColumnDef<ExecutionType>[]>(() => {
     return [
       {
         id: 'id',
@@ -40,43 +40,40 @@ const DatasetsTable: FC<DatasetsTablePropsI> = ({ onDestroy, data }) => {
         accessorFn: row => row.name,
       },
       {
-        id: 'buses',
-        header: () => <span># of Buses</span>,
-        accessorFn: row => row.buses.length,
+        id: 'dataset_name',
+        header: () => <span>Dataset</span>,
+        cell: ({ row }) => (
+          <ButtonLink
+            className="bg-indigo-100 text-xs text-indigo-700"
+            to={`/datasets/${row.original.dataset.id}`}
+            leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
+          >
+            {row.original.dataset.name}
+          </ButtonLink>
+        ),
       },
       {
-        id: 'routes',
-        header: () => <span># of Routes</span>,
-        accessorFn: row => row.routes.length,
+        id: 'results',
+        header: () => <span>Results</span>,
+        cell: ({ row }) => (
+          <ButtonLink
+            className="bg-indigo-100 text-xs text-indigo-700"
+            to={`/datasets/${row.original.result.id}`}
+            leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
+          >
+            Results
+          </ButtonLink>
+        ),
+      },
+      {
+        id: 'time',
+        header: () => <span>Time(ms)</span>,
+        accessorFn: row => row.result.time.toFixed(4),
       },
       {
         id: 'created_at',
         header: () => <span>Created At</span>,
         accessorFn: row => toCalendar(row.created_at),
-      },
-      {
-        id: 'actions',
-        header: () => <></>,
-        meta: {
-          className:
-            'relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6',
-        },
-        cell: ({ row }) => (
-          <div className="flex items-end justify-end space-x-2">
-            <ButtonLink
-              to={`/datasets/${row.original.id}`}
-              className="bg-indigo-100 text-xs text-indigo-700"
-            >
-              View
-            </ButtonLink>
-            <Button
-              className="bg-red-100 text-xs text-red-700"
-              onClick={() => onDestroy(row.original.id)}
-            >
-              Delete
-            </Button>
-          </div>
-        ),
       },
     ];
   }, []);
@@ -107,4 +104,4 @@ const DatasetsTable: FC<DatasetsTablePropsI> = ({ onDestroy, data }) => {
   );
 };
 
-export default DatasetsTable;
+export default ExecutionsTable;

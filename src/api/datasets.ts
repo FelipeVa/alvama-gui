@@ -1,6 +1,5 @@
 import api from '@/utils/fetcher';
-import { DatasetType } from '@/types/api.type';
-import { CreateDatasetFormValues } from '@/types/dataset.type';
+import { CreateDatasetFormValues, DatasetType } from '@/types/dataset.type';
 
 export const datasets = {
   getDatasets: async (): Promise<DatasetType[]> => {

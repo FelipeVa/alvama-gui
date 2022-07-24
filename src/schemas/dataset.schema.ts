@@ -21,9 +21,7 @@ export const createDatasetSchema = object().shape({
           available: number().moreThan(0).required().transform(ensureNumber),
         }),
       ),
-      costs: object().shape({
-        per_km: number().moreThan(0).required().transform(ensureNumber),
-      }),
+      cost_per_km: number().moreThan(0).required().transform(ensureNumber),
     }),
   ),
 });

@@ -59,7 +59,7 @@ const ShowDataset = () => {
           .map((capacity: BusCapacityType) => capacity.available)
           .reduce((acc: number, curr: string) => acc + parseInt(curr), 0),
       )
-      .reduce((acc: number, curr: string) => acc + parseInt(curr), 0);
+      .reduce((acc: number, curr: number) => acc + curr, 0);
   }, [data]);
 
   return (

@@ -1,9 +1,6 @@
-import { BusType, RouteType } from '@/types/model.type';
+import { BusType, RouteType } from '@/types/dataset.type';
 
-export type DatasetType = {
-  id: number;
-  name: string;
-  buses: BusType[];
-  routes: RouteType[];
+export type ResourceResponse<T> = T & {
+  id: string;
   created_at: string;
 };

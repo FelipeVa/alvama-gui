@@ -47,7 +47,7 @@ const Switch = <T,>({
             aria-hidden="true"
             className={clsx(
               field.value ? 'translate-x-5' : 'translate-x-0',
-              'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+              'inline-block pointer-events-none h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
             )}
           />
         </HeadlessSwitch>
