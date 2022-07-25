@@ -1,71 +1,68 @@
 import React, { FC, useMemo, useState } from 'react';
-import { RouteType } from '@/types/dataset.type';
 import {
   ColumnDef,
   getCoreRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
+import { ResultItemType } from '@/types/result.type';
 import { Table } from '@/components';
 
-interface RoutesTablePropsI {
-  routes: RouteType[];
+interface ResultItemsTablePropsI {
+  data?: ResultItemType[];
 }
 
-const RoutesTable: FC<RoutesTablePropsI> = ({ routes }) => {
+const ResultItemsTable: FC<ResultItemsTablePropsI> = ({ data }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = useMemo<ColumnDef<RouteType>[]>(() => {
+  const columns = useMemo<ColumnDef<ResultItemType>[]>(() => {
     return [
       {
-        id: 'name',
-        header: () => <span>Name</span>,
-        accessorFn: row => row.name,
-        size: 450,
+        id: 'route',
+        header: () => <span>Route</span>,
+        accessorFn: row => row.route.name,
       },
       {
-        id: 'cost_per_km',
-        header: () => <span>Length (Km)</span>,
-        accessorFn: row => row.length,
+        id: 'bus',
+        header: () => <span>Bus</span>,
+        accessorFn: row => row.bus.name,
       },
       {
-        id: 'capacities',
-        header: () => <span>Demand</span>,
-        accessorFn: row => row.demand,
+        id: 'capacity',
+        header: () => <span>Capacity</span>,
+        accessorFn: row => row.capacity.name,
       },
       {
-        id: 'number_of_buses',
-        header: () => <span>Cycle Time (min)</span>,
-        accessorFn: row => row.cycle_time,
+        id: 'bus_amount_to_be_used',
+        header: () => <span># of Buses To Be Used</span>,
+        accessorFn: row => row.value,
       },
     ];
   }, []);
 
   const table = useReactTable({
-    data: routes ?? [],
-
+    data: data ?? [],
     columns,
     state: {
       sorting,
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
     defaultColumn: {
-      minSize: 20,
+      minSize: 10,
     },
   });
-
   return (
     <div className="space-y-8 sm:space-y-5">
       <div>
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Routes</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">
+          Result Items
+        </h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">
-          Table of routes with all their properties.
+          Table of result items.
         </p>
       </div>
       <div>
@@ -83,4 +80,4 @@ const RoutesTable: FC<RoutesTablePropsI> = ({ routes }) => {
   );
 };
 
-export default RoutesTable;
+export default ResultItemsTable;
