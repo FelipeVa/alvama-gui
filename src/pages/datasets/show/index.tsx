@@ -15,10 +15,8 @@ import { useTypeSafeMutation } from '@/hooks/useTypeSafeMutation';
 import { useNotifier } from '@/hooks/useNotifier';
 import { useQueryClient } from '@tanstack/react-query';
 import { BusesTable, RoutesTable } from '@/pages/datasets/show/components';
-import * as dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
 import { BusCapacityType } from '@/types/dataset.type';
-dayjs.extend(calendar);
+import { toCalendar } from '@/utils/common';
 
 const ShowDataset = () => {
   const notifier = useNotifier();
@@ -114,7 +112,7 @@ const ShowDataset = () => {
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                 aria-hidden="true"
               />
-              Created {dayjs(data?.created_at).calendar()}
+              Created {toCalendar(data?.created_at as string)}
             </div>
           </div>
         </>

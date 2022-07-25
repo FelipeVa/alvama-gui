@@ -11,6 +11,8 @@ import CreateDataset from '@/pages/datasets/create';
 import ShowDataset from '@/pages/datasets/show';
 import IndexExecution from '@/pages/executions/home';
 import CreateExecution from '@/pages/executions/create';
+import IndexResult from '@/pages/results/home';
+import ShowResult from '@/pages/results/show';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -30,6 +32,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="executions">
               <Route index element={<IndexExecution />} />
               <Route path="create" element={<CreateExecution />} />
+            </Route>
+            <Route path="results">
+              <Route index element={<IndexResult />} />
+              <Route path=":resultId" element={<ShowResult />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

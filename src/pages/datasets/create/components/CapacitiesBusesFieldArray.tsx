@@ -41,7 +41,7 @@ const CapacitiesBusesFieldArray: FC<BusesFieldArrayPropsI> = ({
           {fields.map((field, index) => (
             <div
               key={field.id}
-              className="relative grid grid-cols-2 gap-2 py-4"
+              className="relative grid grid-cols-3 gap-2 py-4"
             >
               <div className="absolute top-1.5 right-0">
                 <Button
@@ -52,6 +52,14 @@ const CapacitiesBusesFieldArray: FC<BusesFieldArrayPropsI> = ({
                   <TrashIcon className="h-3 w-3" />
                   <span>Remove</span>
                 </Button>
+              </div>
+              <div className="col-span-1">
+                <Input<CreateDatasetFormValues>
+                  type="text"
+                  label="Name"
+                  name={`buses.${busIndex}.capacities.${index}.name`}
+                  control={control}
+                />
               </div>
               <div className="col-span-1">
                 <Input<CreateDatasetFormValues>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import clsx from '@/utils/clsx';
 import {
+  DocumentReportIcon,
   HomeIcon,
   MenuIcon,
   PlayIcon,
@@ -17,6 +18,7 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
   { name: 'Datasets', href: '/datasets', icon: UsersIcon },
   { name: 'Executions', href: '/executions', icon: PlayIcon },
+  { name: 'Results', href: '/results', icon: DocumentReportIcon },
 ];
 
 const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {

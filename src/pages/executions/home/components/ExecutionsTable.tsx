@@ -11,7 +11,7 @@ import { ExecutionType } from '@/types/execution.type';
 import { Table } from '@/components';
 import { ButtonLink } from '@/components/form';
 import { EyeIcon } from '@heroicons/react/outline';
-import { fromNow, toCalendar } from '@/utils/common';
+import { toCalendar } from '@/utils/common';
 
 interface ExecutionsTablePropsI {
   data?: ExecutionType[];
@@ -58,7 +58,7 @@ const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
         cell: ({ row }) => (
           <ButtonLink
             className="bg-indigo-100 text-xs text-indigo-700"
-            to={`/datasets/${row.original.result.id}`}
+            to={`/results/${row.original.result.id}`}
             leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
           >
             Results

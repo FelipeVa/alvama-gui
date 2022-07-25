@@ -6,7 +6,7 @@ export const createDatasetSchema = object().shape({
   name: string().required(),
   routes: array().of(
     object().shape({
-      label: string().required(),
+      name: string().required(),
       length: number().moreThan(0).required().transform(ensureNumber),
       demand: number().moreThan(0).required().transform(ensureNumber),
       cycle_time: number().moreThan(0).required().transform(ensureNumber),
@@ -14,9 +14,10 @@ export const createDatasetSchema = object().shape({
   ),
   buses: array().of(
     object().shape({
-      brand: string().required(),
+      name: string().required(),
       capacities: array().of(
         object().shape({
+          name: string().required(),
           capacity: number().moreThan(0).required().transform(ensureNumber),
           available: number().moreThan(0).required().transform(ensureNumber),
         }),

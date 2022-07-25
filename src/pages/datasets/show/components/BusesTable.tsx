@@ -3,12 +3,11 @@ import { BusCapacityType, BusType } from '@/types/dataset.type';
 import {
   ColumnDef,
   getCoreRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { Table, Modal } from '@/components';
+import { Table } from '@/components';
 import { Button } from '@/components/form';
 import { EyeIcon } from '@heroicons/react/outline';
 import { useDisclose } from '@/hooks/useDisclose';
@@ -32,8 +31,8 @@ const BusesTable: FC<BusesTablePropsI> = ({ buses }) => {
     return [
       {
         id: 'name',
-        header: () => <span>Brand</span>,
-        accessorFn: row => row.brand,
+        header: () => <span>Name</span>,
+        accessorFn: row => row.name,
         size: 450,
       },
       {

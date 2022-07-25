@@ -24,7 +24,7 @@ const initialValues: CreateDatasetFormValues = {
   ],
   buses: [
     {
-      brand: 'Bus Brand',
+      name: 'Bus Brand',
       capacities: [],
       cost_per_km: '0',
     },

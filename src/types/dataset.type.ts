@@ -9,6 +9,7 @@ export type RouteType = {
 
 export type BusCapacityType = {
   id: number;
+  name: string;
   capacity: string;
   available: string;
   created_at: string;
@@ -16,7 +17,7 @@ export type BusCapacityType = {
 
 export type BusType = {
   id: number;
-  brand: string;
+  name: string;
   capacities: BusCapacityType[];
   cost_per_km: string;
   created_at: string;

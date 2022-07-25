@@ -26,6 +26,12 @@ const BusCapacitiesModal: FC<BusCapacitiesModalPropsI> = ({
                       scope="col"
                       className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    >
                       Capacity
                     </th>
                     <th
@@ -39,6 +45,9 @@ const BusCapacitiesModal: FC<BusCapacitiesModalPropsI> = ({
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {capacities.map((capacity, index) => (
                     <tr key={index}>
+                      <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
+                        {capacity.name}
+                      </td>
                       <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
                         {capacity.capacity}
                       </td>
