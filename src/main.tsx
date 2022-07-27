@@ -13,6 +13,7 @@ import IndexExecution from '@/pages/executions/home';
 import CreateExecution from '@/pages/executions/create';
 import IndexResult from '@/pages/results/home';
 import ShowResult from '@/pages/results/show';
+import IndexForecast from '@/pages/forecasts/home';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -27,15 +28,21 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="datasets">
               <Route index element={<IndexDataset />} />
               <Route path="create" element={<CreateDataset />} />
+
+              <Route path="executions">
+                <Route index element={<IndexExecution />} />
+                <Route path="create" element={<CreateExecution />} />
+              </Route>
+              <Route path="results">
+                <Route index element={<IndexResult />} />
+                <Route path=":resultId" element={<ShowResult />} />
+              </Route>
+
               <Route path=":datasetId" element={<ShowDataset />} />
             </Route>
-            <Route path="executions">
-              <Route index element={<IndexExecution />} />
-              <Route path="create" element={<CreateExecution />} />
-            </Route>
-            <Route path="results">
-              <Route index element={<IndexResult />} />
-              <Route path=":resultId" element={<ShowResult />} />
+
+            <Route path="forecasts">
+              <Route index element={<IndexForecast />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -1,17 +1,26 @@
 import React from 'react';
 import { useTypeSafeQuery } from '@/hooks/useTypeSafeQuery';
+import { useTypeSafeMutation } from '@/hooks/useTypeSafeMutation';
 import BasicContainer from '@/components/layouts/BasicContainer';
 import { Button, ButtonLink } from '@/components/form';
 import { PlusIcon, RefreshIcon } from '@heroicons/react/outline';
-import { ExecutionsTable } from '@/pages/executions/home/components';
+import { ForecastsTable } from '@/pages/forecasts/home/components';
 
-const IndexExecution = () => {
+const IndexForecast = () => {
   const { data, refetch, isRefetching, isLoading } = useTypeSafeQuery([
-    'getExecutions',
+    'getForecasts',
   ]);
+  const { mutate } = useTypeSafeMutation('destroyDataset', {
+    onSuccess: () => refetch(),
+  });
+
+  const onDestroyDataset = (id: number) => {
+    mutate([id]);
+  };
+
   return (
     <BasicContainer
-      title="Executions"
+      title="Forecats"
       isLoading={isLoading}
       actions={
         <div className="flex justify-end space-x-2">
@@ -25,18 +34,20 @@ const IndexExecution = () => {
           </Button>
 
           <ButtonLink
-            to="/datasets/executions/create"
+            to="/forecasts/create"
             className="bg-indigo-600 text-sm"
             leftIcon={<PlusIcon className="mr-2 h-5 w-5" />}
           >
-            Create Execution
+            Create Forecast
           </ButtonLink>
         </div>
       }
     >
-      {data ? <ExecutionsTable data={data} /> : null}
+      {data ? (
+        <ForecastsTable data={data} onDestroy={onDestroyDataset} />
+      ) : null}
     </BasicContainer>
   );
 };
 
-export default IndexExecution;
+export default IndexForecast;

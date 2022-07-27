@@ -76,7 +76,7 @@ const RoutesFieldArray: FC<RoutesFieldArrayPropsI> = ({ control }) => {
                 <div className="col-span-1">
                   <Input<CreateDatasetFormValues>
                     type="text"
-                    label="Cycle Time"
+                    label="Cycle Time (min)"
                     name={`routes.${index}.cycle_time`}
                     control={control}
                   />

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useEffect } from 'react';
-import { useModelImporter } from '@/hooks/useModelImporter';
+import { useFileImporter } from '@/hooks/useFileImporter';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import BasicContainer from '@/components/layouts/BasicContainer';
 import { Button, ButtonLink } from '@/components/form';
@@ -11,6 +11,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createDatasetSchema } from '@/schemas/dataset.schema';
 import CreateDatasetForm from '@/pages/datasets/create/components/CreateDatasetForm';
+import { useNotifier } from '@/hooks/useNotifier';
 
 const initialValues: CreateDatasetFormValues = {
   name: '',
@@ -32,10 +33,11 @@ const initialValues: CreateDatasetFormValues = {
 };
 
 const CreateDataset = () => {
+  const notifier = useNotifier();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { importData, onImport, isImporting } =
-    useModelImporter<CreateDatasetFormValues>();
+    useFileImporter<CreateDatasetFormValues>();
   const { mutate, isLoading } = useTypeSafeMutation('createDataset', {
     onSuccess: () => {
       navigate('/datasets');
@@ -60,6 +62,17 @@ const CreateDataset = () => {
 
   useEffect(() => {
     if (importData) {
+      if (
+        !['buses', 'routes'].every(key => Object.keys(importData).includes(key))
+      ) {
+        notifier.notify({
+          title: 'Invalid File',
+          message: 'The file is not a valid model file.',
+        });
+
+        return;
+      }
+
       reset({
         ...(importData as CreateDatasetFormValues),
         name: importData?.name ?? `Dataset #${Math.floor(Math.random() * 11)}`,

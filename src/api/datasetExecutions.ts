@@ -4,14 +4,14 @@ import {
   ExecutionType,
 } from '@/types/execution.type';
 
-export const executions = {
+export const datasetExecutions = {
   getExecutions: async (): Promise<ExecutionType[]> => {
-    return (await api.get('/executions')).data;
+    return (await api.get('datasets/executions')).data;
   },
 
   createExecution: async (
     execution: CreateExecutionFormValues,
   ): Promise<ExecutionType> => {
-    return (await api.post('/executions', execution)).data;
+    return (await api.post('datasets/executions', execution)).data;
   },
 };

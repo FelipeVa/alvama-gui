@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import clsx from '@/utils/clsx';
 import {
+  CollectionIcon,
   DocumentReportIcon,
   HomeIcon,
   MenuIcon,
   PlayIcon,
-  UsersIcon,
 } from '@heroicons/react/outline';
 import { useDisclose } from '@/hooks/useDisclose';
 import { NavLink } from 'react-router-dom';
@@ -15,10 +15,25 @@ interface BasicLayoutPropsI {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-  { name: 'Datasets', href: '/datasets', icon: UsersIcon },
-  { name: 'Executions', href: '/executions', icon: PlayIcon },
-  { name: 'Results', href: '/results', icon: DocumentReportIcon },
+  {
+    items: [{ name: 'Dashboard', href: '/', icon: HomeIcon, current: true }],
+  },
+  {
+    title: 'Datasets',
+    items: [
+      { name: 'Datasets', href: '/datasets', icon: CollectionIcon },
+      { name: 'Executions', href: '/datasets/executions', icon: PlayIcon },
+      { name: 'Results', href: '/datasets/results', icon: DocumentReportIcon },
+    ],
+  },
+  {
+    title: 'Forecasts',
+    items: [
+      { name: 'Forecasts', href: '/forecasts', icon: CollectionIcon },
+      { name: 'Executions', href: '/executions', icon: PlayIcon },
+      { name: 'Results', href: '/results', icon: DocumentReportIcon },
+    ],
+  },
 ];
 
 const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {
@@ -37,34 +52,47 @@ const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {
               />
             </div>
             <nav className="mt-5 flex-1 space-y-1 px-2">
-              {navigation.map(item => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    clsx(
-                      isActive
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
-                    )
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      <item.icon
-                        className={clsx(
+              {navigation.map((group, index) => (
+                <div key={index}>
+                  {group.title ? (
+                    <h3
+                      className="my-3 px-3 text-xs font-semibold uppercase tracking-wider text-gray-300"
+                      id="projects-headline"
+                    >
+                      {group.title}
+                    </h3>
+                  ) : null}
+                  {group?.items.map(item => (
+                    <NavLink
+                      key={item.name}
+                      to={item.href}
+                      className={({ isActive }) =>
+                        clsx(
                           isActive
-                            ? 'text-gray-300'
-                            : 'text-gray-400 group-hover:text-gray-300',
-                          'mr-3 h-6 w-6 flex-shrink-0',
-                        )}
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </>
-                  )}
-                </NavLink>
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
+                        )
+                      }
+                      end
+                    >
+                      {({ isActive }) => (
+                        <>
+                          <item.icon
+                            className={clsx(
+                              isActive
+                                ? 'text-gray-300'
+                                : 'text-gray-400 group-hover:text-gray-300',
+                              'mr-3 h-6 w-6 flex-shrink-0',
+                            )}
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </>
+                      )}
+                    </NavLink>
+                  ))}
+                </div>
               ))}
             </nav>
           </div>

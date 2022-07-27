@@ -25,7 +25,7 @@ const CreateExecution = () => {
   ]);
   const { mutate, isLoading } = useTypeSafeMutation('createExecution', {
     onSuccess: () => {
-      navigate('/executions');
+      navigate('/datasets/executions');
     },
     onSettled: () => {
       queryClient.invalidateQueries(['getExecutions']);
@@ -51,7 +51,7 @@ const CreateExecution = () => {
       actions={
         <div className="flex justify-end gap-2">
           <ButtonLink
-            to="/executions"
+            to="/datasets/executions"
             className="bg-indigo-100 text-sm text-indigo-700"
             leftIcon={<ArrowLeftIcon className="mr-2 h-5 w-5" />}
           >

@@ -1,4 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
+import { ForecastType } from '@/types/forecast.type';
 import {
   ColumnDef,
   getCoreRowModel,
@@ -7,26 +8,19 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ExecutionType } from '@/types/execution.type';
-import { Table } from '@/components';
-import { ButtonLink } from '@/components/form';
-import { EyeIcon } from '@heroicons/react/outline';
 import { toCalendar } from '@/utils/common';
+import { Button, ButtonLink } from '@/components/form';
+import { Table } from '@/components';
 
-interface ExecutionsTablePropsI {
-  data?: ExecutionType[];
+interface ForecastsTablePropsI {
+  onDestroy: (id: number) => void;
+  data?: ForecastType[];
 }
 
-declare module '@tanstack/react-table' {
-  interface ColumnMeta {
-    className?: string;
-  }
-}
-
-const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
+const ForecastsTable: FC<ForecastsTablePropsI> = ({ onDestroy, data }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = useMemo<ColumnDef<ExecutionType>[]>(() => {
+  const columns = useMemo<ColumnDef<ForecastType>[]>(() => {
     return [
       {
         id: 'id',
@@ -40,40 +34,38 @@ const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
         accessorFn: row => row.name,
       },
       {
-        id: 'dataset_name',
-        header: () => <span>Dataset</span>,
-        cell: ({ row }) => (
-          <ButtonLink
-            className="bg-indigo-100 text-xs text-indigo-700"
-            to={`/datasets/${row.original.dataset.id}`}
-            leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
-          >
-            {row.original.dataset.name}
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'results',
-        header: () => <span>Results</span>,
-        cell: ({ row }) => (
-          <ButtonLink
-            className="bg-indigo-100 text-xs text-indigo-700"
-            to={`/datasets/results/${row.original.result.id}`}
-            leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
-          >
-            Results
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'time',
-        header: () => <span>Time(ms)</span>,
-        accessorFn: row => row.result.time.toFixed(4),
+        id: 'items',
+        header: () => <span># of Items</span>,
+        accessorFn: row => row.items.length,
       },
       {
         id: 'created_at',
         header: () => <span>Created At</span>,
         accessorFn: row => toCalendar(row.created_at),
+      },
+      {
+        id: 'actions',
+        header: () => <></>,
+        meta: {
+          className:
+            'relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6',
+        },
+        cell: ({ row }) => (
+          <div className="flex items-end justify-end space-x-2">
+            <ButtonLink
+              to={`/forecasts/${row.original.id}`}
+              className="bg-indigo-100 text-xs text-indigo-700"
+            >
+              View
+            </ButtonLink>
+            <Button
+              className="bg-red-100 text-xs text-red-700"
+              onClick={() => onDestroy(row.original.id)}
+            >
+              Delete
+            </Button>
+          </div>
+        ),
       },
     ];
   }, []);
@@ -104,4 +96,4 @@ const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
   );
 };
 
-export default ExecutionsTable;
+export default ForecastsTable;
