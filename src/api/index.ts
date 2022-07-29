@@ -2,19 +2,28 @@ import { datasets } from '@/api/datasets';
 import { datasetExecutions } from '@/api/datasetExecutions';
 import { datasetResults } from '@/api/datasetResults';
 import { forecasts } from '@/api/forecasts';
+import { forecastExecutions } from '@/api/forecastExecutions';
+import { forecastResults } from '@/api/forecastResults';
 
 export const wrap = () => ({
   query: {
     getDatasets: datasets.getDatasets,
     getDataset: datasets.getDataset,
     getExecutions: datasetExecutions.getExecutions,
-    getResults: datasetResults.getResults,
-    getResult: datasetResults.getResult,
+    getDatasetResults: datasetResults.getResults,
+    getDatasetResult: datasetResults.getResult,
     getForecasts: forecasts.getForecasts,
+    getForecast: forecasts.getForecast,
+    getForecastExecutions: forecastExecutions.getExecutions,
+    getForecastResults: forecastResults.getResults,
+    getForecastResult: forecastResults.getResult,
   },
   mutation: {
     destroyDataset: datasets.deleteDataset,
     createDataset: datasets.createDataset,
-    createExecution: datasetExecutions.createExecution,
+    createDatasetExecution: datasetExecutions.createExecution,
+    createForecastExecution: forecastExecutions.createExecution,
+    createForecast: forecasts.createForecast,
+    destroyForecast: forecasts.deleteForecast,
   },
 });

@@ -1,17 +1,17 @@
 import api from '@/utils/fetcher';
 import {
-  CreateExecutionFormValues,
-  ExecutionType,
+  CreateDatasetExecutionFormValues,
+  DatasetExecutionType,
 } from '@/types/execution.type';
 
 export const datasetExecutions = {
-  getExecutions: async (): Promise<ExecutionType[]> => {
+  getExecutions: async (): Promise<DatasetExecutionType[]> => {
     return (await api.get('datasets/executions')).data;
   },
 
   createExecution: async (
-    execution: CreateExecutionFormValues,
-  ): Promise<ExecutionType> => {
+    execution: CreateDatasetExecutionFormValues,
+  ): Promise<DatasetExecutionType> => {
     return (await api.post('datasets/executions', execution)).data;
   },
 };

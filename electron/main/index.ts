@@ -106,7 +106,7 @@ ipcMain.handle('open-win', (event, arg) => {
   }
 })
 
-ipcMain.on('file-request', (event) => {
+ipcMain.on('file-request', (event, formats) => {
   // If the platform is 'win32' or 'Linux'
   if (process.platform !== 'darwin') {
     // Resolves to a Promise<Object>
@@ -118,7 +118,7 @@ ipcMain.on('file-request', (event) => {
       filters: [
         {
           name: 'Text Files',
-          extensions: ['txt', 'docx']
+          extensions: formats,
         }, ],
       // Specifying the File Selector Property
       properties: ['openFile']
@@ -143,7 +143,7 @@ ipcMain.on('file-request', (event) => {
       filters: [
         {
           name: 'Text Files',
-          extensions: ['json', 'csv']
+          extensions: formats,
         },
       ],
       properties: ['openFile', 'openDirectory']

@@ -1,38 +1,25 @@
 import React from 'react';
-import BasicContainer from '@/components/layouts/BasicContainer';
 import { useTypeSafeQuery } from '@/hooks/useTypeSafeQuery';
-import {
-  CollectionIcon,
-  PlusIcon,
-  RefreshIcon,
-} from '@heroicons/react/outline';
+import BasicContainer from '@/components/layouts/BasicContainer';
 import { Button, ButtonLink } from '@/components/form';
-import { useTypeSafeMutation } from '@/hooks/useTypeSafeMutation';
-import { DatasetsTable } from '@/pages/datasets/home/components';
-import Empty from '@/components/Empty';
+import { PlayIcon, PlusIcon, RefreshIcon } from '@heroicons/react/outline';
+import { ExecutionsTable } from '@/pages/forecasts/executions/home/components';
+import { Empty } from '@/components';
 import { useNavigate } from 'react-router-dom';
 
-const IndexDataset = () => {
+const IndexForecastExecution = () => {
   const navigate = useNavigate();
-
   const { data, refetch, isRefetching, isLoading } = useTypeSafeQuery([
-    'getDatasets',
+    'getForecastExecutions',
   ]);
-  const { mutate } = useTypeSafeMutation('destroyDataset', {
-    onSuccess: () => refetch(),
-  });
 
-  const onDestroyDataset = (id: number) => {
-    mutate([id]);
-  };
-
-  const onCreateDataset = () => {
-    navigate('/datasets/create');
+  const onCreateExecution = () => {
+    navigate('/datasets/executions/create');
   };
 
   return (
     <BasicContainer
-      title="Datasets"
+      title="Executions"
       isLoading={isLoading}
       actions={
         <div className="flex justify-end space-x-2">
@@ -46,26 +33,26 @@ const IndexDataset = () => {
           </Button>
 
           <ButtonLink
-            to="/datasets/create"
+            to="/forecasts/executions/create"
             className="bg-indigo-600 text-sm"
             leftIcon={<PlusIcon className="mr-2 h-5 w-5" />}
           >
-            Create Dataset
+            Create Execution
           </ButtonLink>
         </div>
       }
     >
       {data && data.length ? (
-        <DatasetsTable data={data} onDestroy={onDestroyDataset} />
+        <ExecutionsTable data={data} />
       ) : (
         <Empty
-          title="Create a new dataset"
-          onClick={onCreateDataset}
-          icon={<CollectionIcon className="mx-auto h-12 w-12 text-gray-400" />}
+          title="Create a new execution"
+          onClick={onCreateExecution}
+          icon={<PlayIcon className="mx-auto h-12 w-12 text-gray-400" />}
         />
       )}
     </BasicContainer>
   );
 };
 
-export default IndexDataset;
+export default IndexForecastExecution;

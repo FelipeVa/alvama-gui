@@ -30,8 +30,8 @@ const navigation = [
     title: 'Forecasts',
     items: [
       { name: 'Forecasts', href: '/forecasts', icon: CollectionIcon },
-      { name: 'Executions', href: '/executions', icon: PlayIcon },
-      { name: 'Results', href: '/results', icon: DocumentReportIcon },
+      { name: 'Executions', href: '/forecasts/executions', icon: PlayIcon },
+      { name: 'Results', href: '/forecasts/results', icon: DocumentReportIcon },
     ],
   },
 ];

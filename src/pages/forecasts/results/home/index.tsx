@@ -1,37 +1,23 @@
 import React from 'react';
 import { useTypeSafeQuery } from '@/hooks/useTypeSafeQuery';
-import { useTypeSafeMutation } from '@/hooks/useTypeSafeMutation';
-import BasicContainer from '@/components/layouts/BasicContainer';
 import { Button, ButtonLink } from '@/components/form';
 import {
-  CollectionIcon,
+  DocumentReportIcon,
   PlusIcon,
   RefreshIcon,
 } from '@heroicons/react/outline';
-import { ForecastsTable } from '@/pages/forecasts/home/components';
+import BasicContainer from '@/components/layouts/BasicContainer';
+import { ResultsTable } from '@/pages/forecasts/results/home/components';
 import { Empty } from '@/components';
-import { useNavigate } from 'react-router-dom';
 
-const IndexForecast = () => {
-  const navigate = useNavigate();
+const IndexForecastResult = () => {
   const { data, refetch, isRefetching, isLoading } = useTypeSafeQuery([
-    'getForecasts',
+    'getForecastResults',
   ]);
-  const { mutate } = useTypeSafeMutation('destroyForecast', {
-    onSuccess: () => refetch(),
-  });
-
-  const onDestroyDataset = (id: number) => {
-    mutate([id]);
-  };
-
-  const onCreateForecast = () => {
-    navigate('/forecasts/create');
-  };
 
   return (
     <BasicContainer
-      title="Forecasts"
+      title="Results"
       isLoading={isLoading}
       actions={
         <div className="flex justify-end space-x-2">
@@ -45,26 +31,27 @@ const IndexForecast = () => {
           </Button>
 
           <ButtonLink
-            to="/forecasts/create"
+            to="/datasets/executions/create"
             className="bg-indigo-600 text-sm"
             leftIcon={<PlusIcon className="mr-2 h-5 w-5" />}
           >
-            Create Forecast
+            Create Execution
           </ButtonLink>
         </div>
       }
     >
       {data && data.length ? (
-        <ForecastsTable data={data} onDestroy={onDestroyDataset} />
+        <ResultsTable data={data} />
       ) : (
         <Empty
-          title="Create a new forecast"
-          onClick={onCreateForecast}
-          icon={<CollectionIcon className="mx-auto h-12 w-12 text-gray-400" />}
+          title="Nothing to show"
+          icon={
+            <DocumentReportIcon className="mx-auto h-12 w-12 text-gray-400" />
+          }
         />
       )}
     </BasicContainer>
   );
 };
 
-export default IndexForecast;
+export default IndexForecastResult;

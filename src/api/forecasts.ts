@@ -1,23 +1,23 @@
 import api from '@/utils/fetcher';
-import { CreateDatasetFormValues, DatasetType } from '@/types/dataset.type';
-import { ForecastType } from '@/types/forecast.type';
+import { DatasetType } from '@/types/dataset.type';
+import { CreateForecastFormValues, ForecastType } from '@/types/forecast.type';
 
 export const forecasts = {
   getForecasts: async (): Promise<ForecastType[]> => {
     return (await api.get('/forecasts')).data;
   },
 
-  deleteDataset: async (id: number | string): Promise<void> => {
-    return (await api.delete(`/datasets/${id}`)).data;
+  deleteForecast: async (id: number | string): Promise<void> => {
+    return (await api.delete(`/forecasts/${id}`)).data;
   },
 
-  createDataset: async (
-    dataset: CreateDatasetFormValues,
+  createForecast: async (
+    forecast: CreateForecastFormValues,
   ): Promise<DatasetType> => {
-    return (await api.post('/datasets', dataset)).data;
+    return (await api.post('/forecasts', forecast)).data;
   },
 
-  getDataset: async (id: string): Promise<DatasetType> => {
-    return (await api.get(`/datasets/${id}`)).data;
+  getForecast: async (id: string): Promise<ForecastType> => {
+    return (await api.get(`/forecasts/${id}`)).data;
   },
 };

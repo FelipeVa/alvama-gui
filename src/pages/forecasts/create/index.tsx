@@ -1,60 +1,58 @@
 import React, { MouseEventHandler, useEffect } from 'react';
-import { useFileImporter } from '@/hooks/useFileImporter';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import BasicContainer from '@/components/layouts/BasicContainer';
 import { Button, ButtonLink } from '@/components/form';
 import { ArrowLeftIcon, UploadIcon } from '@heroicons/react/outline';
-import { CreateDatasetFormValues } from '@/types/dataset.type';
+import { BasicContainer } from '@/components/layouts';
+import { useFileImporter } from '@/hooks/useFileImporter';
+import { CreateForecastFormValues } from '@/types/forecast.type';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CreateForecastForm } from '@/pages/forecasts/create/components';
+import { useNotifier } from '@/hooks/useNotifier';
+import { createForecastSchema } from '@/schemas/forecast.schema';
 import { useTypeSafeMutation } from '@/hooks/useTypeSafeMutation';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { createDatasetSchema } from '@/schemas/dataset.schema';
-import CreateDatasetForm from '@/pages/datasets/create/components/CreateDatasetForm';
-import { useNotifier } from '@/hooks/useNotifier';
 
-const initialValues: CreateDatasetFormValues = {
+const initialValues: CreateForecastFormValues = {
   name: '',
-  routes: [
+  items: [
     {
-      name: 'route-label',
-      length: '0',
-      demand: '0',
-      cycle_time: '0',
-    },
-  ],
-  buses: [
-    {
-      name: 'Bus Brand',
-      capacities: [],
-      cost_per_km: '0',
+      name: 'Demand #1',
+      value: '0',
     },
   ],
 };
 
-const CreateDataset = () => {
+const CreateForecast = () => {
   const notifier = useNotifier();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { importData, onImport, isImporting } =
-    useFileImporter<CreateDatasetFormValues>({
-      formats: ['json'],
+    useFileImporter<CreateForecastFormValues>({
+      csv_delimiter: ';',
+      columns: ['name', 'value'],
     });
-  const { mutate, isLoading } = useTypeSafeMutation('createDataset', {
+
+  const { mutate, isLoading } = useTypeSafeMutation('createForecast', {
     onSuccess: () => {
-      navigate('/datasets');
+      navigate('/forecasts');
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['getDatasets']);
+      queryClient.invalidateQueries(['getForecasts']);
     },
   });
 
-  const { control, handleSubmit, reset } = useForm<CreateDatasetFormValues>({
-    resolver: yupResolver(createDatasetSchema),
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateForecastFormValues>({
+    resolver: yupResolver(createForecastSchema),
     defaultValues: initialValues,
   });
 
-  const onSubmit: SubmitHandler<CreateDatasetFormValues> = data => {
+  const onSubmit: SubmitHandler<CreateForecastFormValues> = data => {
     mutate([data]);
   };
 
@@ -64,31 +62,45 @@ const CreateDataset = () => {
 
   useEffect(() => {
     if (importData) {
+      if (Array.isArray(importData)) {
+        reset({
+          name: `Forecast #${Math.floor(Math.random() * 11)}`,
+          items: importData,
+        });
+
+        return;
+      }
+
       if (
-        !['buses', 'routes'].every(key => Object.keys(importData).includes(key))
+        !['name', 'items'].every(key => Object.keys(importData).includes(key))
       ) {
         notifier.notify({
           title: 'Invalid File',
-          message: 'The file is not a valid model file.',
+          message: 'The file is not a valid forecast file.',
         });
 
         return;
       }
 
       reset({
-        ...(importData as CreateDatasetFormValues),
-        name: importData?.name ?? `Dataset #${Math.floor(Math.random() * 11)}`,
+        ...(importData as CreateForecastFormValues),
+        name: importData?.name ?? `Forecast #${Math.floor(Math.random() * 11)}`,
       });
     }
   }, [importData]);
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   return (
     <BasicContainer
-      title="Create Dataset"
+      title="Create Forecast"
+      isLoading={isLoading}
       actions={
         <div className="flex justify-end gap-2">
           <ButtonLink
-            to="/datasets"
+            to="/forecasts"
             className="bg-indigo-100 text-sm text-indigo-700"
             leftIcon={<ArrowLeftIcon className="mr-2 h-5 w-5" />}
           >
@@ -108,14 +120,15 @@ const CreateDataset = () => {
         </div>
       }
     >
-      <CreateDatasetForm
+      <CreateForecastForm
         control={control}
         onSubmit={handleSubmit(onSubmit)}
-        isLoading={isLoading}
+        isLoading={isImporting}
+        errors={errors}
         onReset={onReset}
       />
     </BasicContainer>
   );
 };
 
-export default CreateDataset;
+export default CreateForecast;

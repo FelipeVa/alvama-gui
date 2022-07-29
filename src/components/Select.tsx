@@ -26,7 +26,6 @@ const Select = <T,>({
 }: SelectPropsI<T>) => {
   const selectedValue = items.find(item => item.value === value)?.label;
 
-  console.log(items);
   return (
     <Listbox
       value={value}
