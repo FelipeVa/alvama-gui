@@ -66,6 +66,14 @@ async function createWindow() {
   })
 }
 
+app.setAboutPanelOptions({
+  applicationName: 'Alvama GUI',
+  applicationVersion: '1.0.0',
+  version: '1',
+  copyright: 'Copyright © 2022 Felipe Valencia & Carlos Marin. All rights reserved.',
+  website: 'https://alvama.co',
+});
+
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {

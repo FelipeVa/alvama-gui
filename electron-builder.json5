@@ -4,6 +4,7 @@
 {
   appId: "com.alvama-gui.app",
   productName: "Alvama GUI",
+  author: "Felipe Valencia & Carlos Marin",
   copyright: "Copyright © 2022 ${author}",
   asar: true,
   directories: {
