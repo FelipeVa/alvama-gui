@@ -21,9 +21,13 @@ const ShowForecast = () => {
   const forecastId = params.forecastId as string;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data, isLoading } = useTypeSafeQuery(['getForecast'], [forecastId], {
-    enabled: !!forecastId,
-  });
+  const { data, isLoading } = useTypeSafeQuery(
+    ['getForecast', forecastId],
+    [forecastId],
+    {
+      enabled: !!forecastId,
+    },
+  );
 
   const { mutate } = useTypeSafeMutation('destroyForecast', {
     onSuccess: () => {

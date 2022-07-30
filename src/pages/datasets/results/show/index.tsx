@@ -12,7 +12,7 @@ const ShowDatasetResult = () => {
   const params = useParams();
   const resultId = params?.resultId as string;
   const { data, isLoading } = useTypeSafeQuery(
-    ['getDatasetResult'],
+    ['getDatasetResult', resultId],
     [resultId],
     {
       enabled: !!resultId,
@@ -58,7 +58,7 @@ const ShowDatasetResult = () => {
       actions={
         <div className="flex justify-end gap-2">
           <ButtonLink
-            to="/results"
+            to="/datasets/results"
             className="bg-indigo-100 text-sm text-indigo-700"
             leftIcon={<ArrowLeftIcon className="mr-2 h-5 w-5" />}
           >

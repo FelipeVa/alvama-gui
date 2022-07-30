@@ -24,7 +24,7 @@ const ShowDataset = () => {
   const datasetId = params?.datasetId as string;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data } = useTypeSafeQuery(['getDataset'], [datasetId], {
+  const { data } = useTypeSafeQuery(['getDataset', datasetId], [datasetId], {
     enabled: !!datasetId,
   });
 

@@ -10,7 +10,7 @@ const ShowForecastResult = () => {
   const params = useParams();
   const resultId = params?.resultId as string;
   const { data, isLoading } = useTypeSafeQuery(
-    ['getForecastResult'],
+    ['getForecastResult', resultId],
     [resultId],
     {
       enabled: !!resultId,
@@ -24,7 +24,7 @@ const ShowForecastResult = () => {
       actions={
         <div className="flex justify-end gap-2">
           <ButtonLink
-            to="/results"
+            to="/forecasts/results"
             className="bg-indigo-100 text-sm text-indigo-700"
             leftIcon={<ArrowLeftIcon className="mr-2 h-5 w-5" />}
           >

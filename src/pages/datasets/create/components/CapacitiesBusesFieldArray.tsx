@@ -57,6 +57,7 @@ const CapacitiesBusesFieldArray: FC<BusesFieldArrayPropsI> = ({
                 <Input<CreateDatasetFormValues>
                   type="text"
                   label="Name"
+                  placeholder="Bus capacity name"
                   name={`buses.${busIndex}.capacities.${index}.name`}
                   control={control}
                 />
@@ -65,6 +66,7 @@ const CapacitiesBusesFieldArray: FC<BusesFieldArrayPropsI> = ({
                 <Input<CreateDatasetFormValues>
                   type="text"
                   label="Capacity"
+                  placeholder="Bus capacity"
                   name={`buses.${busIndex}.capacities.${index}.capacity`}
                   control={control}
                 />
@@ -73,6 +75,7 @@ const CapacitiesBusesFieldArray: FC<BusesFieldArrayPropsI> = ({
                 <Input<CreateDatasetFormValues>
                   type="text"
                   label="Available"
+                  placeholder="Number of buses available"
                   name={`buses.${busIndex}.capacities.${index}.available`}
                   control={control}
                 />

@@ -54,6 +54,7 @@ const BusesFieldArray: FC<BusesFieldArrayPropsI> = ({ control }) => {
                       <Input<CreateDatasetFormValues>
                         type="text"
                         label="Name"
+                        placeholder="Bus Brand/Name"
                         name={`buses.${index}.name`}
                         control={control}
                       />
@@ -62,6 +63,7 @@ const BusesFieldArray: FC<BusesFieldArrayPropsI> = ({ control }) => {
                       <Input<CreateDatasetFormValues>
                         type="text"
                         label="Cost per km"
+                        placeholder="Bus cost per km"
                         name={`buses.${index}.cost_per_km`}
                         control={control}
                       />

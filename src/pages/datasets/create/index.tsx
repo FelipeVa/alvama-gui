@@ -17,7 +17,7 @@ const initialValues: CreateDatasetFormValues = {
   name: '',
   routes: [
     {
-      name: 'route-label',
+      name: '',
       length: '0',
       demand: '0',
       cycle_time: '0',
@@ -25,7 +25,7 @@ const initialValues: CreateDatasetFormValues = {
   ],
   buses: [
     {
-      name: 'Bus Brand',
+      name: '',
       capacities: [],
       cost_per_km: '0',
     },
@@ -49,10 +49,11 @@ const CreateDataset = () => {
     },
   });
 
-  const { control, handleSubmit, reset } = useForm<CreateDatasetFormValues>({
-    resolver: yupResolver(createDatasetSchema),
-    defaultValues: initialValues,
-  });
+  const { control, handleSubmit, reset, setValue } =
+    useForm<CreateDatasetFormValues>({
+      resolver: yupResolver(createDatasetSchema),
+      defaultValues: initialValues,
+    });
 
   const onSubmit: SubmitHandler<CreateDatasetFormValues> = data => {
     mutate([data]);
@@ -113,6 +114,7 @@ const CreateDataset = () => {
         onSubmit={handleSubmit(onSubmit)}
         isLoading={isLoading}
         onReset={onReset}
+        setValue={setValue}
       />
     </BasicContainer>
   );

@@ -7,6 +7,7 @@ import {
   RoutesFieldArray,
 } from '@/pages/datasets/create/components';
 import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
+import { UseFormSetValue } from 'react-hook-form/dist/types/form';
 
 interface CreateDatasetFormPropsI
   extends Required<
@@ -15,6 +16,7 @@ interface CreateDatasetFormPropsI
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   isLoading: boolean;
   onReset: MouseEventHandler<HTMLButtonElement>;
+  setValue: UseFormSetValue<CreateDatasetFormValues>;
 }
 
 const CreateDatasetForm: FC<CreateDatasetFormPropsI> = ({
@@ -22,6 +24,7 @@ const CreateDatasetForm: FC<CreateDatasetFormPropsI> = ({
   onSubmit,
   isLoading,
   onReset,
+  setValue,
 }) => {
   return (
     <form className="space-y-8" onSubmit={onSubmit}>
@@ -50,7 +53,7 @@ const CreateDatasetForm: FC<CreateDatasetFormPropsI> = ({
       </div>
 
       <div className="space-y-8 sm:space-y-5">
-        <RoutesFieldArray control={control} />
+        <RoutesFieldArray control={control} setValue={setValue} />
         <BusesFieldArray control={control} />
       </div>
 

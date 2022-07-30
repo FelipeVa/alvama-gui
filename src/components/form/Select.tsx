@@ -31,7 +31,7 @@ const Select = <T,>({
 
   return (
     <div>
-      <div className="relative mt-1 rounded-md shadow-sm">
+      <div className="relative rounded-md shadow-sm">
         <SelectComponent
           {...field}
           label={label}
