@@ -15,9 +15,9 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
-    "csv-parse": "^5.3.0",
     "electron-store": "^8.0.2",
     "jsonfile": "^6.1.0",
+    "csv-parse": "^5.3.0",
     "node-notifier": "^10.0.1"
   },
   "devDependencies": {

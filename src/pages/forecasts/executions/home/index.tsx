@@ -14,7 +14,7 @@ const IndexForecastExecution = () => {
   ]);
 
   const onCreateExecution = () => {
-    navigate('/datasets/executions/create');
+    navigate('/forecasts/executions/create');
   };
 
   return (

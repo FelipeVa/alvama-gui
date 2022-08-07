@@ -7,7 +7,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { toCalendar } from '@/utils/common';
+import { toCalendar, toUSD } from '@/utils/common';
 import { Table } from '@/components';
 import { DatasetResultType } from '@/types/result.type';
 import { ButtonLink } from '@/components/form';
@@ -63,7 +63,7 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
       {
         id: 'objective',
         header: () => <span>Objective</span>,
-        accessorFn: row => row.objective,
+        accessorFn: row => toUSD(row.objective),
       },
       {
         id: 'time',

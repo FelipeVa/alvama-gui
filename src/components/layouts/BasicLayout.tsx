@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import { useDisclose } from '@/hooks/useDisclose';
 import { NavLink } from 'react-router-dom';
+import logo from '@/assets/images/logo.png';
 
 interface BasicLayoutPropsI {
   children: React.ReactNode;
@@ -45,11 +46,7 @@ const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {
         <div className="flex min-h-0 flex-1 flex-col bg-gray-800">
           <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
             <div className="flex flex-shrink-0 items-center px-4">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                alt="Workflow"
-              />
+              <img className="h-10 w-auto" src={logo} alt="Workflow" />
             </div>
             <nav className="mt-5 flex-1 space-y-1 px-2">
               {navigation.map((group, index) => (

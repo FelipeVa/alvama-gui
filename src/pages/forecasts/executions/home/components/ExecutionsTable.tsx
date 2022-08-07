@@ -41,7 +41,7 @@ const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
       },
       {
         id: 'dataset_name',
-        header: () => <span>Dataset</span>,
+        header: () => <span>Forecast</span>,
         cell: ({ row }) => (
           <ButtonLink
             className="bg-indigo-100 text-xs text-indigo-700"

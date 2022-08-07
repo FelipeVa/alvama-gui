@@ -17,8 +17,8 @@ const initialValues: CreateForecastFormValues = {
   name: '',
   items: [
     {
-      name: 'Demand #1',
-      value: '0',
+      name: '',
+      value: '',
     },
   ],
 };

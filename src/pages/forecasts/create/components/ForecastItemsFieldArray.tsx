@@ -21,8 +21,8 @@ const ForecastItemsFieldArray: FC<ForecastItemsFieldArrayPropsI> = ({
 
   const onAddItem = () => {
     append({
-      name: `Demand #${fields.length + 1}`,
-      value: '0',
+      name: '',
+      value: '',
     });
   };
 
@@ -63,6 +63,7 @@ const ForecastItemsFieldArray: FC<ForecastItemsFieldArrayPropsI> = ({
                       <Input<CreateForecastFormValues>
                         type="text"
                         label="Name"
+                        placeholder="Forecast item name"
                         name={`items.${index}.name`}
                         control={control}
                       />
@@ -71,6 +72,7 @@ const ForecastItemsFieldArray: FC<ForecastItemsFieldArrayPropsI> = ({
                       <Input<CreateForecastFormValues>
                         type="number"
                         label="Value"
+                        placeholder="Forecast item value"
                         name={`items.${index}.value`}
                         control={control}
                       />

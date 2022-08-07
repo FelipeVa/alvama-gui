@@ -31,7 +31,7 @@ const IndexForecastResult = () => {
           </Button>
 
           <ButtonLink
-            to="/datasets/executions/create"
+            to="/forecasts/executions/create"
             className="bg-indigo-600 text-sm"
             leftIcon={<PlusIcon className="mr-2 h-5 w-5" />}
           >

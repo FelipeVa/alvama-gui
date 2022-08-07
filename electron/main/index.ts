@@ -32,11 +32,11 @@ const indexHtml = join(ROOT_PATH.dist, 'index.html')
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: 'Main window',
+    title: 'Alvama GUI v' + app.getVersion(),
     width: 1200,
     height: 768,
     minHeight: 400,
-    maxHeight: 800,
+    maxHeight: 1080,
     minWidth: 400,
     maxWidth: 1500,
     icon: join(ROOT_PATH.public, 'favicon.svg'),
