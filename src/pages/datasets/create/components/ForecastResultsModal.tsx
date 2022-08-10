@@ -40,6 +40,10 @@ const ForecastResultsModal: FC<ForecastResultsModalPropsI> = ({
     onClose();
   };
 
+  const getSelectedResultRow = (row: ForecastResultType) => {
+    return row?.result_items?.find(item => item.selected);
+  };
+
   const columns = useMemo<ColumnDef<ForecastResultType>[]>(() => {
     return [
       {
@@ -70,14 +74,14 @@ const ForecastResultsModal: FC<ForecastResultsModalPropsI> = ({
               'inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800',
             )}
           >
-            {row.original.method}
+            {getSelectedResultRow(row.original)?.method}
           </span>
         ),
       },
       {
         id: 'vale',
         header: () => <span>Projected Value</span>,
-        accessorFn: row => row.value,
+        accessorFn: row => getSelectedResultRow(row)?.value,
       },
       {
         id: 'created_at',
@@ -95,7 +99,10 @@ const ForecastResultsModal: FC<ForecastResultsModalPropsI> = ({
           <div className="flex items-end justify-end space-x-2">
             <Button
               onClick={() =>
-                onChooseValue(row.original.value as unknown as string)
+                onChooseValue(
+                  getSelectedResultRow(row.original)
+                    ?.value as unknown as string,
+                )
               }
               className="bg-indigo-100 text-xs text-indigo-700"
             >

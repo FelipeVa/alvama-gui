@@ -7,40 +7,29 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { toCalendar, toUSD } from '@/utils/common';
-import { Table } from '@/components';
-import { DatasetResultType } from '@/types/result.type';
 import { ButtonLink } from '@/components/form';
+import { Table } from '@/components';
+import { toCalendar, toUSD } from '@/utils/common';
+import { DatasetResultType } from '@/types/result.type';
 import clsx from '@/utils/clsx';
-import { EyeIcon } from '@heroicons/react/outline';
 
-interface ResultsTablePropsI {
+interface LastTenDatasetResultTablePropsI {
   data?: DatasetResultType[];
 }
-const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
+
+declare module '@tanstack/react-table' {
+  interface ColumnMeta {
+    className?: string;
+  }
+}
+
+const LastTenDatasetResultTable: FC<LastTenDatasetResultTablePropsI> = ({
+  data,
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const columns = useMemo<ColumnDef<DatasetResultType>[]>(() => {
     return [
-      {
-        id: 'id',
-        header: () => <span>#</span>,
-        accessorFn: row => row.id,
-        size: 20,
-      },
-      {
-        id: 'execution_name',
-        header: () => <span>Execution</span>,
-        cell: ({ row }) => (
-          <ButtonLink
-            className="bg-indigo-100 text-xs text-indigo-700"
-            to={`/datasets/executions/${row.original.execution.id}`}
-            leftIcon={<EyeIcon className="mr-2 h-5 w-5" />}
-          >
-            {row.original.execution.name}
-          </ButtonLink>
-        ),
-      },
       {
         id: 'status',
         header: () => <span>Status</span>,
@@ -71,11 +60,6 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
         accessorFn: row => row.time,
       },
       {
-        id: 'created_at',
-        header: () => <span>Created At</span>,
-        accessorFn: row => toCalendar(row.created_at),
-      },
-      {
         id: 'actions',
         header: () => <></>,
         meta: {
@@ -94,7 +78,7 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
         ),
       },
     ];
-  }, [data]);
+  }, []);
 
   const table = useReactTable({
     data: data ?? [],
@@ -110,11 +94,11 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
   });
 
   return (
-    <div className="mt-8 flex flex-col">
+    <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-            <Table table={table} isPaginated />
+            <Table table={table} />
           </div>
         </div>
       </div>
@@ -122,4 +106,4 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
   );
 };
 
-export default ResultsTable;
+export default LastTenDatasetResultTable;

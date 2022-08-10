@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTypeSafeQuery } from '@/hooks/useTypeSafeQuery';
 import { ButtonLink } from '@/components/form';
 import { ArrowLeftIcon, CalendarIcon, EyeIcon } from '@heroicons/react/outline';
 import { toCalendar } from '@/utils/common';
 import BasicContainer from '@/components/layouts/BasicContainer';
+import { ResultItemsTable } from '@/pages/forecasts/results/show/components';
 
 const ShowForecastResult = () => {
   const params = useParams();
@@ -16,6 +17,14 @@ const ShowForecastResult = () => {
       enabled: !!resultId,
     },
   );
+
+  const selectedResult = useMemo(() => {
+    return data?.result_items?.find(item => item.selected);
+  }, [data]);
+
+  const filterByNotSelected = () => {
+    return data?.result_items?.filter(item => !item.selected);
+  };
 
   return (
     <BasicContainer
@@ -51,10 +60,10 @@ const ShowForecastResult = () => {
           <div className="space-y-8 sm:space-y-5">
             <div>
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                General Information
+                Selected Result Information
               </h3>
               <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                General information about the result.
+                Selected result is the result with lower error.
               </p>
             </div>
             <div>
@@ -70,7 +79,7 @@ const ShowForecastResult = () => {
                                 Method
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {data.method}
+                                {selectedResult?.method}
                               </dd>
                             </div>
                             <div className="sm:col-span-1">
@@ -86,7 +95,7 @@ const ShowForecastResult = () => {
                                 Projected Value
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {data.value}
+                                {selectedResult?.value}
                               </dd>
                             </div>
                             <div className="sm:col-span-1">
@@ -114,6 +123,8 @@ const ShowForecastResult = () => {
               </div>
             </div>
           </div>
+
+          <ResultItemsTable data={data?.result_items} />
         </div>
       ) : null}
     </BasicContainer>

@@ -4,6 +4,7 @@ import { datasetResults } from '@/api/datasetResults';
 import { forecasts } from '@/api/forecasts';
 import { forecastExecutions } from '@/api/forecastExecutions';
 import { forecastResults } from '@/api/forecastResults';
+import { dashboard } from '@/api/dashboard';
 
 export const wrap = () => ({
   query: {
@@ -17,6 +18,8 @@ export const wrap = () => ({
     getForecastExecutions: forecastExecutions.getExecutions,
     getForecastResults: forecastResults.getResults,
     getForecastResult: forecastResults.getResult,
+    getDatasetResultStats: dashboard.getDatasetResultStats,
+    getLastTenResults: dashboard.getLastTenResults,
   },
   mutation: {
     destroyDataset: datasets.deleteDataset,

@@ -32,18 +32,18 @@ export type DatasetResultType = {
   created_at: string;
 };
 
-export type ForecastResultType = {
-  id: string;
+export type ForecastResultItemType = {
   method: string;
   mean_squared_error: number;
-  time: number;
   value: number;
-  execution: ForecastExecutionType;
-  forecast: ForecastType;
-  created_at: string;
+  selected: boolean;
 };
 
-// "method": "Moving Average",
-//         "value": 4495,
-//         "mean_squared_error": 84862.09777777773,
-//         "time": 0.0108,
+export type ForecastResultType = {
+  id: string;
+  time: number;
+  execution: ForecastExecutionType;
+  forecast: ForecastType;
+  result_items: ForecastResultItemType[];
+  created_at: string;
+};

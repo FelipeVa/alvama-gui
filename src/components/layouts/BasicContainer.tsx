@@ -25,7 +25,7 @@ const BasicContainer: FC<BasicContainerPropsI> = ({
           </h1>
           <>{description ? description : null}</>
         </div>
-        <div>{actions}</div>
+        <>{actions}</>
       </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {isLoading ? <LoadingOverlay /> : null}

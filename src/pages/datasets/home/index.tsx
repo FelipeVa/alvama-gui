@@ -18,6 +18,7 @@ const IndexDataset = () => {
   const { data, refetch, isRefetching, isLoading } = useTypeSafeQuery([
     'getDatasets',
   ]);
+
   const { mutate } = useTypeSafeMutation('destroyDataset', {
     onSuccess: () => refetch(),
   });

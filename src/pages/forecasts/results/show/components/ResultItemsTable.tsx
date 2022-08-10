@@ -6,37 +6,48 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { DatasetResultItemType } from '@/types/result.type';
+import { ForecastResultItemType } from '@/types/result.type';
 import { Table } from '@/components';
+import { ButtonLink } from '@/components/form';
 
 interface ResultItemsTablePropsI {
-  data?: DatasetResultItemType[];
+  data?: ForecastResultItemType[];
 }
 
 const ResultItemsTable: FC<ResultItemsTablePropsI> = ({ data }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = useMemo<ColumnDef<DatasetResultItemType>[]>(() => {
+  const columns = useMemo<ColumnDef<ForecastResultItemType>[]>(() => {
     return [
       {
-        id: 'route',
-        header: () => <span>Route</span>,
-        accessorFn: row => row.route.name,
+        id: 'method',
+        header: () => <span>Method</span>,
+        accessorFn: row => row.method,
       },
       {
-        id: 'bus',
-        header: () => <span>Bus</span>,
-        accessorFn: row => row.bus.name,
+        id: 'mean_squared_error',
+        header: () => <span>Mean Squared Error</span>,
+        accessorFn: row => row.mean_squared_error,
       },
       {
-        id: 'capacity',
-        header: () => <span>Capacity</span>,
-        accessorFn: row => row.capacity.name,
-      },
-      {
-        id: 'bus_amount_to_be_used',
-        header: () => <span># of Buses To Be Used</span>,
+        id: 'value',
+        header: () => <span>Value</span>,
         accessorFn: row => row.value,
+      },
+      {
+        id: 'selected',
+        header: () => <span>Selected</span>,
+        accessorFn: row => row.selected,
+        cell: ({ row }) =>
+          row.original.selected ? (
+            <span className="inline-flex items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800">
+              Yes
+            </span>
+          ) : (
+            <span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
+              No
+            </span>
+          ),
       },
     ];
   }, []);
@@ -70,7 +81,7 @@ const ResultItemsTable: FC<ResultItemsTablePropsI> = ({ data }) => {
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                <Table table={table} isPaginated />
+                <Table table={table} />
               </div>
             </div>
           </div>

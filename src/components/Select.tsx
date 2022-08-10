@@ -1,5 +1,5 @@
-import React, { Fragment, useMemo, forwardRef } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
+import React, { forwardRef } from 'react';
+import { Listbox } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
 import clsx from '@/utils/clsx';
 import { CheckIcon } from '@heroicons/react/solid';
@@ -8,7 +8,7 @@ interface SelectPropsI<T> {
   items: { label: string; value: string }[];
   value: T | string;
   label?: string;
-  onChange: (value: T) => void;
+  onChange: (value: T | string) => void;
   disabled?: boolean | undefined;
   horizontal?: boolean | undefined;
   name?: string | undefined;
