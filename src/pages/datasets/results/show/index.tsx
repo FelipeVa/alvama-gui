@@ -43,9 +43,40 @@ const ShowDatasetResult = () => {
       }) as unknown as number;
   }, [data, dataset]);
 
+  const totalRouteDemand = useMemo(() => {
+    return dataset?.routes
+      .map(item => item.demand)
+      .flat()
+      .reduce((acc, curr) => {
+        return acc + parseInt(curr);
+      }) as unknown as number;
+  }, [data, dataset]);
+
+  const totalBusCapacity = useMemo(() => {
+    console.log(
+      data?.result_items.map(
+        item => parseInt(item.capacity.capacity) * parseInt(item.value) * 2,
+      ),
+    );
+
+    return data?.result_items
+      .map(item => parseInt(item.capacity.capacity) * parseInt(item.value) * 2)
+      .reduce((acc, curr) => {
+        return acc + curr;
+      }) as unknown as number;
+  }, [data, dataset]);
+
+  const personsServedPercentage = useMemo(() => {
+    if (!totalBusCapacity || !totalRouteDemand) {
+      return 0;
+    }
+
+    return ((totalBusCapacity / totalRouteDemand) * 100).toFixed(2);
+  }, [totalBusCapacity, totalRouteDemand]);
+
   const buseUsagePercentage = useMemo(() => {
     if (!busesToBeUsed && !busesAvailable) {
-      return;
+      return 0;
     }
 
     return ((busesToBeUsed / busesAvailable) * 100).toFixed(2);
@@ -151,13 +182,22 @@ const ShowDatasetResult = () => {
                                 </ButtonLink>
                               </dd>
                             </div>
-                            <div className="sm:col-span-2">
+                            <div className="sm:col-span-1">
                               <dt className="text-sm font-medium text-gray-500">
                                 Buses to be used
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
                                 {busesToBeUsed} of {busesAvailable} (
                                 {buseUsagePercentage}% of available buses)
+                              </dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Total of people served
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900">
+                                {totalBusCapacity} of {totalRouteDemand} persons
+                                ({personsServedPercentage}% of total)
                               </dd>
                             </div>
                           </dl>
