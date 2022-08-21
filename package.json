@@ -2,7 +2,7 @@
   "name": "alvama-gui",
   "productName": "Alvama GUI",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Alvama graphic user interface.",
   "author": "Felipe Valencia<pipeedev@gmail.com>",
   "license": "MIT",
@@ -69,30 +69,5 @@
   "env": {
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
     "VITE_DEV_SERVER_PORT": 7777
-  },
-  "build": {
-    "mac": {
-      "publish": {
-        "provider": "github",
-        "owner": "felipeva",
-        "private": true
-      }
-    },
-    "win": {
-      "publish": {
-        "provider": "github",
-        "owner": "felipeva",
-        "private": true
-      }
-    },
-    "files": [
-      "dist/**/*",
-      "node_modules/**/*"
-    ],
-    "publish": {
-      "provider": "github",
-      "private": true,
-      "owner": "felipeva"
-    }
   }
 }
