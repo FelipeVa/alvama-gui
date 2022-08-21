@@ -44,7 +44,6 @@ const ForecastItemsTable: FC<ForecastItemsTablePropsI> = ({ items }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
     defaultColumn: {
       minSize: 20,
     },

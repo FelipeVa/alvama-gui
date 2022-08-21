@@ -91,7 +91,6 @@ const DatasetsTable: FC<DatasetsTablePropsI> = ({ onDestroy, data }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
   });
 
   return (

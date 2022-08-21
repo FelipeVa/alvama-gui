@@ -54,7 +54,6 @@ const RoutesTable: FC<RoutesTablePropsI> = ({ routes }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
     defaultColumn: {
       minSize: 20,
     },

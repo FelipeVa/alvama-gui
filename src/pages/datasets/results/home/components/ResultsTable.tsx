@@ -106,7 +106,6 @@ const ResultsTable: FC<ResultsTablePropsI> = ({ data }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
   });
 
   return (

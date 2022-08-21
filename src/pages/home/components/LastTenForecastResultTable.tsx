@@ -87,7 +87,6 @@ const LastTenForecastResultTable: FC<LastTenForecastResultTablePropsI> = ({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
   });
 
   return (

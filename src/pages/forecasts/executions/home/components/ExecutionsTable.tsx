@@ -88,7 +88,6 @@ const ExecutionsTable: FC<ExecutionsTablePropsI> = ({ data }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
   });
 
   return (

@@ -85,7 +85,6 @@ const BusesTable: FC<BusesTablePropsI> = ({ buses }) => {
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
     defaultColumn: {
       minSize: 10,
     },

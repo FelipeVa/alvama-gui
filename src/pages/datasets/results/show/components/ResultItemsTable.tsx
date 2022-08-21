@@ -50,7 +50,6 @@ const ResultItemsTable: FC<ResultItemsTablePropsI> = ({ data }) => {
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
     defaultColumn: {
       minSize: 10,
     },
