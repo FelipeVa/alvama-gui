@@ -8,12 +8,14 @@ import {
 } from '@/pages/home/components';
 import {
   CurrencyDollarIcon,
+  DocumentIcon,
   TruckIcon,
   UsersIcon,
 } from '@heroicons/react/outline';
 import { useTypeSafeQuery } from '@/hooks/useTypeSafeQuery';
 import { toUSD } from '@/utils/common';
-import { Select } from '@/components';
+import { Empty, Select } from '@/components';
+import clsx from '@/utils/clsx';
 
 const Home = () => {
   const [selectedResultId, setSelectedResultId] = useState<
@@ -63,29 +65,31 @@ const Home = () => {
       title="Dashboard"
       isLoading={isLoading}
       actions={
-        <div className="w-1/4">
-          <Select
-            value={selectedResultId}
-            items={[
-              {
-                label: 'Select a result',
-                value: '',
-              },
-              ...(datasetResults?.map(result => {
-                return {
-                  label: result.execution.name,
-                  value: result.id,
-                };
-              }) ?? [
+        lastTenResults?.dataset_results.length ? (
+          <div className="w-1/4">
+            <Select
+              value={selectedResultId}
+              items={[
                 {
-                  label: 'Loading...',
+                  label: 'Select a result',
                   value: '',
                 },
-              ]),
-            ]}
-            onChange={onChangeSelectedResult}
-          />
-        </div>
+                ...(datasetResults?.map(result => {
+                  return {
+                    label: result.execution.name,
+                    value: result.id,
+                  };
+                }) ?? [
+                  {
+                    label: 'Loading...',
+                    value: '',
+                  },
+                ]),
+              ]}
+              onChange={onChangeSelectedResult}
+            />
+          </div>
+        ) : null
       }
     >
       <div>
@@ -125,22 +129,47 @@ const Home = () => {
             </dl>
           </>
         ) : null}
-        <div className="mt-8 grid grid-flow-col grid-cols-2 gap-4">
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              Last 10 dataset results
-            </h3>
-            <LastTenDatasetResultTable data={lastTenResults?.dataset_results} />
+        {lastTenResults?.dataset_results.length ||
+        lastTenResults?.forecast_results.length ? (
+          <div className="mt-8 grid grid-flow-col grid-cols-2 gap-4">
+            {lastTenResults?.dataset_results.length ? (
+              <div
+                className={clsx('space-y-4', {
+                  'col-span-2': !lastTenResults?.forecast_results.length,
+                })}
+              >
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  Last 10 dataset results
+                </h3>
+                <LastTenDatasetResultTable
+                  data={lastTenResults?.dataset_results}
+                />
+              </div>
+            ) : null}
+
+            {lastTenResults?.forecast_results.length ? (
+              <div
+                className={clsx('space-y-4', {
+                  'col-span-2': !lastTenResults?.dataset_results.length,
+                })}
+              >
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  Last 10 forecast results
+                </h3>
+                <LastTenForecastResultTable
+                  data={lastTenResults?.forecast_results}
+                />
+              </div>
+            ) : null}
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              Last 10 forecast results
-            </h3>
-            <LastTenForecastResultTable
-              data={lastTenResults?.forecast_results}
-            />
-          </div>
-        </div>
+        ) : null}
+        {!lastTenResults?.dataset_results.length &&
+        !lastTenResults?.forecast_results.length ? (
+          <Empty
+            title="There are no results yet"
+            icon={<DocumentIcon className="mx-auto h-12 w-12 text-gray-400" />}
+          />
+        ) : null}
       </div>
     </BasicContainer>
   );
