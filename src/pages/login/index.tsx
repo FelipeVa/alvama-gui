@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { loginSchema } from '@/schemas/login.schema';
 import { Button, Input } from '@/components/form';
-import logo from '@/assets/images/logo.png';
+import logo_icon from '@/assets/images/alvama_icon.png';
 
 interface LoginFormValues {
   email: string;
@@ -31,7 +31,7 @@ const LoginPage = () => {
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img className="mx-auto h-12 w-auto" src={logo} alt="Workflow" />
+          <img className="mx-auto h-24 w-auto" src={logo_icon} alt="Workflow" />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
@@ -80,23 +80,6 @@ const LoginPage = () => {
                   placeholder="Password"
                   control={control}
                 />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div>
               </div>
 
               <div>
