@@ -1,13 +1,13 @@
 import { QueryKey, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import {
-  Keys,
+  QueryKeys,
   PaginatedKey,
   QueryType,
   WrapperType,
 } from '@/types/react-query.type';
 import { useApi } from '@/hooks/useApi';
 
-export const useTypeSafeQuery = <K extends Keys>(
+export const useTypeSafeQuery = <K extends QueryKeys>(
   key: K | PaginatedKey<K>,
   params?: Parameters<WrapperType['query'][K]> | undefined[] | undefined,
   opts?: UseQueryOptions,

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import clsx from '@/utils/clsx';
 import {
   CollectionIcon,
@@ -6,10 +6,13 @@ import {
   HomeIcon,
   MenuIcon,
   PlayIcon,
+  SelectorIcon,
 } from '@heroicons/react/outline';
 import { useDisclose } from '@/hooks/useDisclose';
 import { NavLink } from 'react-router-dom';
+import { Menu, Transition } from '@headlessui/react';
 import logo from '@/assets/images/logo.png';
+import { UserDropdown } from '@/components';
 
 interface BasicLayoutPropsI {
   children: React.ReactNode;
@@ -44,10 +47,11 @@ const BasicLayout: FC<BasicLayoutPropsI> = ({ children }) => {
     <>
       <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
         <div className="flex min-h-0 flex-1 flex-col bg-gray-800">
-          <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+          <div className="flex flex-1 flex-col space-y-4 overflow-y-auto pt-5 pb-4">
             <div className="flex flex-shrink-0 items-center px-4">
               <img className="h-10 w-auto" src={logo} alt="Workflow" />
             </div>
+            <UserDropdown />
             <nav className="mt-5 flex-1 space-y-1 px-2">
               {navigation.map((group, index) => (
                 <div key={index}>
