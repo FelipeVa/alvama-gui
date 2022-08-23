@@ -3,8 +3,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { loginSchema } from '@/schemas/login.schema';
-import { Button, Input } from '@/components/form';
+import { Alert } from '@/components';
 import logo_icon from '@/assets/images/alvama_icon.png';
+import { LoginForm } from '@/pages/login/components';
+import { XCircleIcon } from '@heroicons/react/outline';
 
 interface LoginFormValues {
   email: string;
@@ -40,58 +42,18 @@ const LoginPage = () => {
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             {isError ? (
-              <div
-                className="mb-4 flex rounded-lg bg-red-100 p-4 text-sm text-red-700 dark:bg-red-200 dark:text-red-800"
-                role="alert"
+              <Alert
+                className="bg-red-100 p-4 text-red-700 dark:bg-red-200 dark:text-red-800"
+                icon={XCircleIcon}
               >
-                <svg
-                  aria-hidden="true"
-                  className="mr-3 inline h-5 w-5 flex-shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="sr-only">Info</span>
                 <div>{error}</div>
-              </div>
+              </Alert>
             ) : null}
-            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <Input<LoginFormValues>
-                  type="text"
-                  label="Email"
-                  name="email"
-                  placeholder="Email"
-                  control={control}
-                />
-              </div>
-
-              <div>
-                <Input<LoginFormValues>
-                  type="password"
-                  label="Password"
-                  name="password"
-                  placeholder="Password"
-                  control={control}
-                />
-              </div>
-
-              <div>
-                <Button
-                  type="submit"
-                  isLoading={isLoading}
-                  className="flex w-full justify-center bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Sign in
-                </Button>
-              </div>
-            </form>
+            <LoginForm
+              control={control}
+              isLoading={isLoading}
+              onSubmit={handleSubmit(onSubmit)}
+            />
           </div>
         </div>
       </div>

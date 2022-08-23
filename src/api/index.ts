@@ -21,6 +21,7 @@ export const wrap = () => ({
     getForecastResult: forecastResults.getResult,
     getDatasetResultStats: dashboard.getDatasetResultStats,
     getLastTenResults: dashboard.getLastTenResults,
+    me: auth.me,
   },
   mutation: {
     destroyDataset: datasets.deleteDataset,
@@ -30,5 +31,6 @@ export const wrap = () => ({
     createForecast: forecasts.createForecast,
     destroyForecast: forecasts.deleteForecast,
     login: auth.login,
+    logout: auth.logout,
   },
 });
