@@ -5,6 +5,7 @@ import { forecasts } from '@/api/forecasts';
 import { forecastExecutions } from '@/api/forecastExecutions';
 import { forecastResults } from '@/api/forecastResults';
 import { dashboard } from '@/api/dashboard';
+import { auth } from '@/api/auth';
 
 export const wrap = () => ({
   query: {
@@ -28,5 +29,6 @@ export const wrap = () => ({
     createForecastExecution: forecastExecutions.createExecution,
     createForecast: forecasts.createForecast,
     destroyForecast: forecasts.deleteForecast,
+    login: auth.login,
   },
 });

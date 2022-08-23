@@ -1,13 +1,15 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { Await, WrapperType } from '@/types/react-query.type';
+import {
+  MutationKeys,
+  MutationType,
+  WrapperType,
+} from '@/types/react-query.type';
 import { useApi } from '@/hooks/useApi';
 
-type Keys = keyof WrapperType['mutation'];
-
-export const useTypeSafeMutation = <K extends Keys>(
+export const useTypeSafeMutation = <K extends MutationKeys>(
   key: K,
   opts?: UseMutationOptions<
-    Await<WrapperType['mutation'][K]>,
+    MutationType<K>,
     any,
     Parameters<WrapperType['mutation'][K]>,
     any
@@ -16,7 +18,7 @@ export const useTypeSafeMutation = <K extends Keys>(
   const con = useApi();
 
   return useMutation<
-    Await<WrapperType['mutation'][K]>,
+    MutationType<K>,
     any,
     Parameters<WrapperType['mutation'][K]>
   >(

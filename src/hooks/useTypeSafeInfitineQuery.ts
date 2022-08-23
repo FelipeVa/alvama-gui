@@ -4,14 +4,14 @@ import {
   UseInfiniteQueryOptions,
 } from '@tanstack/react-query';
 import {
-  Keys,
+  QueryKeys,
   PaginatedKey,
   QueryType,
   WrapperType,
 } from '@/types/react-query.type';
 import { useApi } from '@/hooks/useApi';
 
-export const useTypeSafeInfiniteQuery = <K extends Keys>(
+export const useTypeSafeInfiniteQuery = <K extends QueryKeys>(
   key: K | PaginatedKey<K>,
   options?: UseInfiniteQueryOptions<QueryType<K>>,
   params?: Parameters<WrapperType['query'][K]> | (string | number)[],
